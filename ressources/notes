@@ -1,0 +1,38 @@
+
+
+-entree:
+    -code ASM
+
+-sortie:
+    - code compile  -> 
+    - shell Code    ->
+
+
+-rempacer:
+    -XOR A A <-> XOR B B; MOV A B (suppose B not been use) <-> XOR B B; PUSH B; MOV A B ;POP B (suppose B not been use) 
+
+
+
+["XOR", 'A', 'A']
+
+[
+    ["XOR", "B", "B"]
+    ["MOV", "A", "B"]
+]
+
+[
+    ["XOR", "B", "B"] 
+    ["PUSH", "B" ]
+    ["MOV", "A", "B"]
+    ["POP", "B"]
+]
+
+{
+    "section1": [
+        [instruction, ope1, op2]
+    ],
+    "section2": [
+        code
+    ],
+
+}
