@@ -1,6 +1,7 @@
 import argparse
 import os
 from replace import findAndReplace
+from time import sleep
 
 #Set arguments with argpars
 parser  = argparse.ArgumentParser(description="Modify shellcode")
@@ -108,9 +109,10 @@ f.close()
 
 #Execute commands
 os.popen(compileAsm)
-
+sleep(1)
 payload = os.popen(getOpcode).read()
 
+print(payload)
     
     
 
