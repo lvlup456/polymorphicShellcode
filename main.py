@@ -100,7 +100,7 @@ for line in instructions:
         if ("word" in line or "dword" in line):
             f.write(" ".join(line)+"\n")
         else:
-            f.write( line[0]+" " +",".join(line[1:len(line)])+"\n")
+            f.write( line[0].lower()+" " +",".join(line[1:len(line)])+"\n")
     else:
         f.write(" ".join(line)+"\n")
 f.close()
