@@ -1,5 +1,36 @@
 import random
 
+
+lengthRegisters = [
+    ["rax", "eax", "ax", "al"],
+    ["rbx", "ebx", "bx", "bl"],
+    ["rcx", "ecx", "cx", "cl"],
+    ["rdx", "edx", "dx", "dl"],
+    ["rsi", "esi", "si", "sil"],
+    ["rdi", "edi", "di", "dil"],
+    ["rbp", "ebp", "bp", "bpl"],
+    ["rsp", "esp", "sp", "spl"],
+    ["r8", "r8d", "r8w", "r8b"],
+    ["r9", "r9d", "r9w", "r9b"],
+    ["r10", "r10d", "r10w", "r10b"],
+    ["r11", "r11d", "r11w", "r11b"],
+    ["r12", "r12d", "r12w", "r12b"],
+    ["r13", "r13d", "r13w", "r13b"],
+    ["r14", "r14d", "r14w", "r14b"],
+    ["r15", "r15d", "r15w", "r15b"]
+]
+
+def randomTempRegister(register, availibleRegister):
+    for r in lengthRegisters:
+        if register.lower() in r:
+            registerPose = r.index(register.lower())
+            break
+    tempRegister = availibleRegister[random.randint(0, len(availibleRegister)-1)]
+    for r in lengthRegisters:
+        if tempRegister.lower() in r:
+            return r[registerPose]
+
+
 def replaceMov(instruction, availibleRegister):
     a = instruction[1]
     b = instruction[2]
@@ -14,7 +45,7 @@ def replaceMov(instruction, availibleRegister):
             ["SUB",a,str(randBNumber)]
         )
     else:
-        temp = availibleRegister[random.randint(0,len(availibleRegister)-1)]
+        temp = randomTempRegister(a, availibleRegister)
         instructionReturn.append(
             ["MOV",temp,b]
         )
@@ -35,7 +66,7 @@ def replaceXor(instruction, availibleRegister):
             ["SUB", a, "0x01"]
         )
     else:
-        temp = availibleRegister[random.randint(0,len(availibleRegister)-1)]
+        temp = randomTempRegister(a, availibleRegister)
         instructionReturn.append(
             ["XOR", temp, temp],
         )
@@ -80,6 +111,8 @@ def replaceSub(instruction, availibleRegister):
         ["ADD", a, str(randBNumber)],
     )
     return instructionReturn
+
+
 
 
 shellCodeAlternatives = {

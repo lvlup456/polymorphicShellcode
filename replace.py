@@ -76,11 +76,14 @@ def compareUpcode(code1, code2):
 
 
 def findAndReplace(instructions, availibleRegister):
-    for i in range(0,len(instructions)):
+    i = 0
+    while i < len(instructions):
         for iAlternatives in shellCodeAlternatives.keys():
             if compareUpcode(instructions[i], list(iAlternatives)):
                 altern = shellCodeAlternatives[iAlternatives](instructions[i], availibleRegister)
-                instructions.pop(i)
+                del instructions[i]
                 for j in range(i, i+len(altern)):
                     instructions.insert(j, altern[j-i])
+                i = i + len(altern)
                 break
+        i += 1
