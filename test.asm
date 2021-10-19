@@ -43,7 +43,7 @@ section .text
     xor r11, r11
     mov dil, 0x03
     mov rsi, r11
-    mov al, 0x21; sys_dup2
+    mov al, 0x21 ; sys_dup2
     syscall ;sys_dup2(0,3)
 
     xor r11, r11

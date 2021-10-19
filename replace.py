@@ -1,11 +1,11 @@
-
+from bdd import shellCodeAlternatives
 
 def compareSingleUpcode(code1, code2):
     if len(code1) == len(code2):
         if len(code1) == 1 or len(code1) == 2:
-            return code1[0] == code2[0]
+            return code1[0].lower() == code2[0].lower()
         elif len(code1) == 3:
-            if code1[0] == code2[0]:
+            if code1[0].lower() == code2[0].lower():
                 if code2[1] == code2[2]:
                     return code1[1] == code1[2]
                 else:
@@ -19,25 +19,26 @@ def compareSingleUpcodeWithMatching(code1, code2, asso):
     asso2 = []
     for i in asso:
         asso2.append(asso[i])
-
     if len(code1) == len(code2):
         if len(code1) == 1 :
-            return code1[0] == code2[0], asso
+            return code1[0].lower() == code2[0].lower(), asso
         elif len(code1) == 2:
-
             if not (code1[1] in asso and asso[code1[1]] == code2[1] ):
-                if not code1[1] in asso and not code2[1] in asso2:
+                if "0x" in code1[1] or "0x" in code1[1]:
+                    pass
+                elif not code1[1] in asso and not code2[1] in asso2:
                     asso[code1[1]] = code2[1]
                 else:
                     return False, asso 
-
             if asso[code1[1]] == code2[1]:
-                return code1[0] == code2[0], asso
+                return code1[0].lower() == code2[0].lower(), asso
             else:
                 return False, asso 
         elif len(code1) == 3:
             if not (code1[1] in asso and asso[code1[1]] == code2[1] ):
-                if not code1[1] in asso and not code2[1] in asso2:
+                if "0x" in code1[1] or "0x" in code1[1]:
+                    pass
+                elif not code1[1] in asso and not code2[1] in asso2:
                     asso[code1[1]] = code2[1]
                     asso2 = []
                     for i in asso:
@@ -46,13 +47,15 @@ def compareSingleUpcodeWithMatching(code1, code2, asso):
                     return False, asso 
 
             if not (code1[2] in asso and asso[code1[2]] == code2[2] ):
-                if not code1[2] in asso and not code2[2] in asso2:
+                if "0x" in code1[2] or "0x" in code1[2]:
+                    pass
+                elif not code1[2] in asso and not code2[2] in asso2:
                     asso[code1[2]] = code2[2]
                 else:
                     return False, asso 
 
             if asso[code1[1]] == code2[1] and asso[code1[2]] == code2[2]:
-                return code1[0] == code2[0], asso
+                return code1[0].lower() == code2[0].lower(), asso
             else:
                 return False, asso 
     else:
@@ -60,9 +63,7 @@ def compareSingleUpcodeWithMatching(code1, code2, asso):
 
 
 def compareUpcode(code1, code2):
-    if type(code1[0]) != type(code2[0]):
-        return False
-    elif isinstance(code1[0], str):
+    if isinstance(code1[0], str):
         return compareSingleUpcode(code1,code2)
     elif isinstance(code1[0], list):
         asso = {}
@@ -73,22 +74,13 @@ def compareUpcode(code1, code2):
         return True
 
 
-code1 = ["XOR", 'A', 'A']
-code2 = ["XOR", 'r1', 'r1']
 
-
-code3 =[
-            ["XOR", "A", "A"],
-            ["XOR", "A", "A"],
-            ["MOV", "C", "C"]
-        ]
-
-code4 =[
-            ["XOR", "C", "C"],
-            ["XOR", "C", "C"],
-            ["MOV", "A", "A"]
-        ]
-
-
-print(compareUpcode(code3, code4))
-
+def findAndReplace(instructions, availibleRegister):
+    for i in range(0,len(instructions)):
+        for iAlternatives in shellCodeAlternatives.keys():
+            if compareUpcode(instructions[i], list(iAlternatives)):
+                altern = shellCodeAlternatives[iAlternatives](instructions[i], availibleRegister)
+                instructions.pop(i)
+                for j in range(i, i+len(altern)):
+                    instructions.insert(j, altern[j-i])
+                break

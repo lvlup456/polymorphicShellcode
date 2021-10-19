@@ -1,5 +1,6 @@
 import argparse
 import os
+from replace import findAndReplace
 
 #Set arguments with argpars
 parser  = argparse.ArgumentParser(description="Modify shellcode")
@@ -47,6 +48,8 @@ for line in instructions:
 #Remove empty list
 instructions = [lin for lin in instructions if len(lin) != 0]
 
+
+
 #Count which registers are used in the program
 countRegisters = {}
 for line in instructions:
@@ -68,7 +71,6 @@ for line in instructions:
             else:
                 countRegisters[line[2]] =1
 
-print(countRegisters)
 
 #List of non volatile registers
 registers = ["r8","r9","r10","r11","r12","r13","r14","r15"]
@@ -76,12 +78,16 @@ registers = ["r8","r9","r10","r11","r12","r13","r14","r15"]
 #Get available registers to use
 availableRegisters = [string for string in registers if string not in countRegisters]
 
-print(availableRegisters)
+
+print(instructions)
+findAndReplace(instructions,availableRegisters)
+print(instructions)
+
+
 
 #Commands to compile and get OPCODEs
 compileAsm = "nasm -f elf64 -F stabs "+file_output+" && ld -o "+file_output.split(".")[0]+" "+file_output.split(".")[0]+".o"
 getOpcode = "objdump -d "+file_output.split(".")[0]+" | grep -Po '\s\K[a-f0-9]{2}(?=\s)' | sed 's/^/\\\\x/g' | perl -pe 's/\\r?\\n//' | sed 's/$/\\n/'"
-
 
 #Write new asm file
 testStart = False
