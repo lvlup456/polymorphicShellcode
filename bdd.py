@@ -11,7 +11,7 @@ def replaceMov(instruction, availibleRegister):
             ["MOV",a,str(bNumber + randBNumber)]
         )
         instructionReturn.append(
-            ["SUB",a,randBNumber]
+            ["SUB",a,str(randBNumber)]
         )
     else:
         temp = availibleRegister[random.randint(0,len(availibleRegister)-1)]
@@ -59,9 +59,10 @@ def replaceAdd(instruction, availibleRegister):
         ["ADD", a, str(b + randBNumber)],
     )
     instructionReturn.append(
-        ["SUB", "A", randBNumber],
+        ["SUB", a, str(randBNumber)],
 
     )
+    return instructionReturn
 
 def replaceSub(instruction, availibleRegister):
     a = instruction[1]
@@ -76,7 +77,7 @@ def replaceSub(instruction, availibleRegister):
         ["SUB", a, str(b + randBNumber)],
     )
     instructionReturn.append(
-        ["ADD", "A", randBNumber],
+        ["ADD", a, str(randBNumber)],
     )
     return instructionReturn
 

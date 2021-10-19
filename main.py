@@ -79,14 +79,11 @@ registers = ["r8","r9","r10","r11","r12","r13","r14","r15"]
 availableRegisters = [string for string in registers if string not in countRegisters]
 
 
-print(instructions)
 findAndReplace(instructions,availableRegisters)
-print(instructions)
-
 
 
 #Commands to compile and get OPCODEs
-compileAsm = "nasm -f elf64 -F stabs "+file_output+" && ld -o "+file_output.split(".")[0]+" "+file_output.split(".")[0]+".o"
+compileAsm = "nasm -f elf64 -F stabs "+file_output +" && ld -o "+file_output.split(".")[0]+" "+file_output.split(".")[0]+".o"
 getOpcode = "objdump -d "+file_output.split(".")[0]+" | grep -Po '\s\K[a-f0-9]{2}(?=\s)' | sed 's/^/\\\\x/g' | perl -pe 's/\\r?\\n//' | sed 's/$/\\n/'"
 
 #Write new asm file
@@ -114,7 +111,6 @@ os.popen(compileAsm)
 
 payload = os.popen(getOpcode).read()
 
-print(payload)
     
     
 
