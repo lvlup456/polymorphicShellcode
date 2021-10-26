@@ -14,7 +14,7 @@ def compareSingleUpcode(code1, code2):
                 return False
     else:
         return False
-
+""" 
 def compareSingleUpcodeWithMatching(code1, code2, asso):
     asso2 = []
     for i in asso:
@@ -72,14 +72,13 @@ def compareUpcode(code1, code2):
             if test == False:
                 return False
         return True
-
-
+"""
 
 def findAndReplace(instructions, availibleRegister):
     i = 0
     while i < len(instructions):
         for iAlternatives in shellCodeAlternatives.keys():
-            if compareUpcode(instructions[i], list(iAlternatives)):
+            if compareSingleUpcode(instructions[i], list(iAlternatives)):
                 altern = shellCodeAlternatives[iAlternatives](instructions[i], availibleRegister)
                 del instructions[i]
                 for j in range(i, i+len(altern)):
