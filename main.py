@@ -49,8 +49,6 @@ for line in instructions:
 #Remove empty list
 instructions = [lin for lin in instructions if len(lin) != 0]
 
-
-
 #Count which registers are used in the program
 countRegisters = {}
 for line in instructions:
