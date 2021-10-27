@@ -6,7 +6,7 @@ from time import sleep
 #Set arguments with argpars
 parser  = argparse.ArgumentParser(description="Modify shellcode")
 parser.add_argument('-file' , help = "Input file", required= True)
-parser.add_argument('-output' , help = "Output name", required= False)
+parser.add_argument('-output' , help = "Output name, with .asm", required= False)
 
 
 #Get args
@@ -109,9 +109,10 @@ f.close()
 os.popen(compileAsm)
 sleep(1)
 payload = os.popen(getOpcode).read()
+f = open("{}-payload.txt".format(file_output.replace(".asm","")), "w")
+f.write(payload)
+f.close()
 
-print(payload)
-    
     
 
 
