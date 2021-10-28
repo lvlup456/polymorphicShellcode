@@ -1,7 +1,8 @@
 # polymorphicShellcode
 
 
-Commandes remplacees:
+# Commandes remplacées:
+
     - MOV A, B
     - XOR A, A
     - ADD A, 0x
@@ -10,5 +11,8 @@ Commandes remplacees:
 
 
 Utilisation:
-    - python3 main.py -file `asm file` -out `fichier de sortie`
+```bash
+python3 main.py -file "entree.asm" -output "sortie.asm"
+```
+Cela créera un fichier nommé sortie-payload.txt, puis le nouveau programme sortie.asm, qui aura été compilé également
 
