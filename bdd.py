@@ -59,12 +59,24 @@ def replaceXor(instruction, availibleRegister):
     instructionReturn = []
 
     if random.randint(0,1):
-        instructionReturn.append(
-            ["MOV", a, "0x01"],
-        )
-        instructionReturn.append(
-            ["SUB", a, "0x01"]
-        )
+        for registers in lengthRegisters:
+            for register in registers:
+                if register == a:
+                    arch = int(pow(2,6-registers.index(a)))
+        if arch == 64:
+            instructionReturn.append(
+                ["MOV", a, "0x"+"1"*int(arch/8)],
+            )
+            instructionReturn.append(
+                ["SUB", a, "0x"+"1"*int(arch/8)]
+            )
+        else:
+            instructionReturn.append(
+                ["MOV", a, "0x"+"1"*int(arch/4)],
+            )
+            instructionReturn.append(
+                ["SUB", a, "0x"+"1"*int(arch/4)]
+            )
     else:
         temp = randomTempRegister(a, availibleRegister)
         instructionReturn.append(
